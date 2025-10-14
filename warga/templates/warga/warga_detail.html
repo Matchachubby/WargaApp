@@ -12,5 +12,20 @@
     <p><strong>Jenis Kelamin:</strong> {{ warga.jenis_kelamin }}</p>
 
     <a href="{% url 'warga-list' %}">Kembali ke Daftar Warga</a>
+
+    <!-- warga/templates/warga/warga_detail.html -->
+    <!-- ... (kode untuk menampilkan detail NIK, alamat, dll) ... -->
+    <hr>
+    <h2>Daftar Pengaduan oleh {{ object.nama_lengkap }}</h2>
+    <ul>
+        {% for aduan in object.pengaduan.all %}
+        <li>
+            <strong>{{ aduan.judul }}</strong> (Status: {{ aduan.get_status_display }})
+            <p>{{ aduan.deskripsi }}</p>
+        </li>
+        {% empty %}
+        <li>Warga ini belum pernah membuat pengaduan.</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

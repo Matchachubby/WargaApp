@@ -4,6 +4,14 @@
     <title>Detail Warga</title>
 </head>
 <body>
+    <h1>Detail Warga: {{ warga.nama_lengkap }}</h1>
+
+    <!-- 🔹 Tombol Edit & Hapus di sini -->
+    <a href="{% url 'warga-edit' warga.pk %}">Edit Data</a> |
+    <a href="{% url 'warga-hapus' warga.pk %}">Hapus Data</a>
+
+    <hr>
+    
     <h1>Detail Warga</h1>
     <p><strong>Nama:</strong> {{ warga.nama_lengkap }}</p>
     <p><strong>NIK:</strong> {{ warga.nik }}</p>

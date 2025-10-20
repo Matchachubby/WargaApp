@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Warga</title>
+</head>
+<body>
+    <h1>Form Data Warga</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Simpan</button>
+        <a href="{% url 'warga-list' %}">Batal</a>
+    </form>
+</body>
+</html>

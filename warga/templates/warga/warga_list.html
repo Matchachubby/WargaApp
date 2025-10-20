@@ -13,6 +13,8 @@
         <a href="{% url 'warga-detail' warga.pk %}">
             {{ warga.nama_lengkap }}
         </a>
+         <!-- Tombol Edit -->
+        <a href="{% url 'warga-edit' warga.pk %}">Edit</a>
     </p>
     {% endfor %}
     </ul>

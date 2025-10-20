@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from django.views.generic import DetailView
-from .models import Warga
-from .models import Pengaduan
+from django.views.generic import ListView, DetailView, CreateView, UpdateView,  DeleteView
+from .models import Warga, Pengaduan
+from django.urls import reverse_lazy
+from .forms import WargaForm
 
 class WargaListView(ListView):
     model = Warga
+    template_name = 'warga/warga_list.html'
+    context_object_name = 'object_list'
 
 class WargaDetailView(DetailView):
     model = Warga
@@ -16,5 +18,16 @@ class PengaduanListView(ListView):
     model = Pengaduan
     template_name = 'warga/pengaduan_list.html'  # lokasi template
     context_object_name = 'object_list'  # opsional, default-nya juga 'object_list'
+
+class WargaUpdateView(UpdateView):
+    model = Warga
+    form_class = WargaForm
+    template_name = 'warga/warga_form.html'  
+    success_url = reverse_lazy('warga-list')
+
+class WargaDeleteView(DeleteView):
+    model = Warga
+    template_name = 'warga/warga_confirm_delete.html'
+    success_url = reverse_lazy('warga-list')
     
 # Create your views here.

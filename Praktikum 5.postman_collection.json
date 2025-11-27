@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "db92a1fe-a3d2-424a-a2f9-c0e0295f6965",
+		"name": "Praktikum 5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49594333",
+		"_collection_link": "https://matchachubby-2982884.postman.co/workspace/Yola-Pratika's-Workspace~3a187cea-1f09-4c8b-810b-74a6d6406d2e/collection/49594333-db92a1fe-a3d2-424a-a2f9-c0e0295f6965?action=share&source=collection_link&creator=49594333"
+	},
+	"item": [
+		{
+			"name": "Get List Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single User",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Not Found",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

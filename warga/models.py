@@ -18,13 +18,14 @@ class Warga(models.Model):
     def __str__(self):
         return self.nama_lengkap
 
+
 class Pengaduan(models.Model):
     STATUS_CHOICES = [
         ('BARU', 'Baru'),
         ('DIPROSES', 'Diproses'),
         ('SELESAI', 'Selesai'),
     ]
-    
+
     judul = models.CharField(max_length=200)
     deskripsi = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='BARU')
@@ -33,4 +34,3 @@ class Pengaduan(models.Model):
 
     def __str__(self):
         return self.judul
-# Create your models here.

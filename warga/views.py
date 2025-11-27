@@ -1,37 +1,47 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView,  DeleteView
-from .models import Warga, Pengaduan
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from rest_framework import viewsets
+
+from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
-from rest_framework.generics import ListAPIView
-from .serializers import WargaSerializer
-from rest_framework.generics import RetrieveAPIView
+from .serializers import WargaSerializer, PengaduanSerializer
+
+
+# ======================
+#   HTML VIEW
+# ======================
 
 class WargaListView(ListView):
     model = Warga
     template_name = 'warga/warga_list.html'
     context_object_name = 'object_list'
 
+
 class WargaDetailView(DetailView):
     model = Warga
-    template_name = 'warga/warga_detail.html'  
+    template_name = 'warga/warga_detail.html'
     context_object_name = 'warga'
+
 
 class PengaduanListView(ListView):
     model = Pengaduan
-    template_name = 'warga/pengaduan_list.html'  # lokasi template
-    context_object_name = 'object_list'  # opsional, default-nya juga 'object_list'
+    template_name = 'warga/pengaduan_list.html'
+    context_object_name = 'object_list'
+
 
 class WargaUpdateView(UpdateView):
     model = Warga
     form_class = WargaForm
-    template_name = 'warga/warga_form.html'  
+    template_name = 'warga/warga_form.html'
     success_url = reverse_lazy('warga-list')
+
 
 class WargaDeleteView(DeleteView):
     model = Warga
     template_name = 'warga/warga_confirm_delete.html'
     success_url = reverse_lazy('warga-list')
+
 
 class PengaduanUpdateView(UpdateView):
     model = Pengaduan
@@ -45,11 +55,16 @@ class PengaduanDeleteView(DeleteView):
     template_name = 'warga/pengaduan_confirm_delete.html'
     success_url = reverse_lazy('pengaduan-list')
 
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+
+# ======================
+#      API VIEWSET
+# ======================
+
+class WargaViewSet(viewsets.ModelViewSet):
+    queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
-# Create your views here.
+
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
+    serializer_class = PengaduanSerializer

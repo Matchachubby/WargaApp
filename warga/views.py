@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
@@ -60,11 +63,44 @@ class PengaduanDeleteView(DeleteView):
 #      API VIEWSET
 # ======================
 
+# Warga API - publik boleh GET, tapi butuh login untuk POST/PUT/DELETE
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    # Filter & search & ordering
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    # fields yang boleh dicari pakai ?search=
+    search_fields = ['nama_lengkap', 'nik', 'alamat']
+    # fields yang boleh di-order pakai ?ordering=
+    ordering_fields = ['nama_lengkap', 'tanggal_registrasi']
+    # opsional: default ordering jika parameter ordering tidak disertakan
+    ordering = ['-tanggal_registrasi']
 
 
+# Pengaduan API - Hanya admin (is_staff=True) boleh akses
 class PengaduanViewSet(viewsets.ModelViewSet):
     queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
     serializer_class = PengaduanSerializer
+    permission_classes = [IsAdminUser]  # jika masih ingin hanya admin
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    search_fields = ['judul', 'deskripsi']
+    ordering_fields = ['status', 'tanggal_lapor']
+    ordering = ['-tanggal_lapor']
+
+
+
+# ======================
+#      API VIEWSET
+# ======================
+
+#class WargaViewSet(viewsets.ModelViewSet):
+    #queryset = Warga.objects.all().order_by('-tanggal_registrasi')
+    #serializer_class = WargaSerializer
+
+
+#class PengaduanViewSet(viewsets.ModelViewSet):
+    #queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
+    #serializer_class = PengaduanSerializer
+

@@ -67,7 +67,7 @@ class PengaduanDeleteView(DeleteView):
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
     
     # Filter & search & ordering
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]

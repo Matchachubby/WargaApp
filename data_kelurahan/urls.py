@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('warga/', include('warga.urls')),
-    path('api/', include('warga.api_urls')),
-    path('api/auth/token/', obtain_auth_token),
+    path('warga/', include('warga.urls')), #mengarahkan URL / warga/ ke aplikasi warga
+    path('api/', include('warga.api_urls')), #URL untuk API
+    path('api/auth/token/', obtain_auth_token, name='api-token-aunth'), 
+    path('api-auth/',include("rest_framework.urls",namespace="rest_framework")), 
 ]

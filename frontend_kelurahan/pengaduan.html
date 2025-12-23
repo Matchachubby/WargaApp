@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pengaduan Warga</title>
+</head>
+<body>
+
+<h1>Daftar Pengaduan</h1>
+
+<div id="pengaduan-list">
+    <p>Memuat data...</p>
+</div>
+
+<h2>Buat Pengaduan</h2>
+
+<form id="pengaduan-form">
+    <input type="text" id="judul" placeholder="Judul Pengaduan" required><br>
+    <textarea id="deskripsi" placeholder="Deskripsi Pengaduan" required></textarea><br>
+
+    <button type="submit">Kirim</button>
+</form>
+
+<br>
+<button onclick="logout()">Logout</button>
+
+<script src="pengaduan.js"></script>
+</body>
+</html>
